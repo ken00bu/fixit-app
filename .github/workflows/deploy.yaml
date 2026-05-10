@@ -1,0 +1,45 @@
+name: Deploy to Production
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        run: |
+          export PNPM_HOME="/root/.local/share/pnpm"
+          export PATH="$PNPM_HOME:$PATH"
+          echo "PNPM_HOME=$PNPM_HOME" >> $GITHUB_ENV
+          echo "$PNPM_HOME" >> $GITHUB_PATH
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile --fetch-timeout 300000
+
+      - name: Build API
+        run: pnpm --filter api build
+
+      - name: Build Web
+        run: pnpm --filter web build
+
+      - name: Deploy ke /home/webdev/www
+        run: |
+          rsync -a --delete \
+            --exclude='.env' \
+            --exclude='node_modules' \
+            $GITHUB_WORKSPACE/ /home/webdev/www/
+
+      - name: Restart PM2
+        run: |
+          export PNPM_HOME="/root/.local/share/pnpm"
+          export PATH="$PNPM_HOME:$PATH"
+          pm2 restart api
+          pm2 restart web
+          pm2 save
