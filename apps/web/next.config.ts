@@ -1,8 +1,5 @@
 import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
-  experimental: {
-    missingSuspenseWithCSRBailout: false,
-  },
   images: {
     remotePatterns: [{
       protocol: 'https',
