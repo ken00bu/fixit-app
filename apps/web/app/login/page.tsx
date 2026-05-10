@@ -1,5 +1,5 @@
 "use client"
-
+export const dynamic = 'force-dynamic'
 import { Center, Text, Card, Stack, Title, Flex, PasswordInput, Button, Box, ThemeIcon, List, em } from "@mantine/core"
 import { Input } from "@mantine/core"
 import { toast } from "../../lib/utils/toast"
