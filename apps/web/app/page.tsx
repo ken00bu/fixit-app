@@ -9,8 +9,7 @@ export default async function Home() {
         if (me.role === 'user') redirect('/dashboard');
         if (me.role === 'technician') redirect('/teknisi');
     } catch (e) {
-        if (e instanceof HttpError && e.status === 401) redirect('/login');
-        throw e;
+        redirect('/login');
     }
   return (
     <Center>

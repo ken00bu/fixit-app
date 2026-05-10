@@ -15,7 +15,7 @@ type Form = {
     isGeneral: boolean
 }
 
-export default function CreateBuildingForm({toggle, facultyId, refresh}: {toggle: () => void, facultyId: number, refresh: (state: boolean) => void}) {
+export default function CreateBuildingForm({toggle, facultyId, refresh}: {toggle: () => void, facultyId: number, refresh: (state: any) => void}) {
 
 
     const form = useForm<Form>({
@@ -32,7 +32,7 @@ export default function CreateBuildingForm({toggle, facultyId, refresh}: {toggle
             const data = await createBuilding(values)
             console.log('data', data)
             toast.success('Berhasil menambahkan gedung' )
-            refresh(prev => !prev)
+            refresh((prev: boolean) => !prev)
             form.reset()
             toggle()
         } catch (error) {

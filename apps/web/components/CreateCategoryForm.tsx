@@ -15,7 +15,7 @@ type Form = {
     isGeneral: boolean
 }
 
-export default function CreateCategoryForm({toggle, priorityId, refresh}: {toggle: () => void, priorityId: number, refresh: (state: boolean) => void}) {
+export default function CreateCategoryForm({toggle, priorityId, refresh}: {toggle: () => void, priorityId: number, refresh: (state: any) => void}) {
 
 
     const form = useForm<Form>({
@@ -30,7 +30,7 @@ export default function CreateCategoryForm({toggle, priorityId, refresh}: {toggl
         try {
             await createCategory(values.name, values.priorityId)
             toast.success('Berhasil menambahkan kategori')
-            refresh(prev => !prev)
+            refresh((prev: any) => !prev)
             form.reset()
             toggle()
         } catch (error) {
