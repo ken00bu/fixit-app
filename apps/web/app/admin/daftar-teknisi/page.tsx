@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic'
 import Header from "./_components/Header";
 import MainLayout from "./_components/MainLayout"
 import { fetchTechnicianSummary } from "@/services/usersServices";
